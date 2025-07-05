@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
-import { Camera, Mail, User } from "lucide-react";
+import { Camera, Mail, User, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ProfilePage = () => {
   const { authUser, isUpdatingProfile, updateProfile } = useAuthStore();
@@ -23,11 +24,22 @@ const ProfilePage = () => {
 
   return (
     <div className="h-screen pt-20">
-      <div className="max-w-2xl mx-auto p-4 py-8">
-        <div className="bg-base-300 rounded-xl p-6 space-y-8">
+      <div className="max-w-2xl mx-auto p-4 py-6 sm:py-8">
+        <div className="bg-base-300 rounded-xl p-4 sm:p-6 space-y-6 sm:space-y-8">
+          {/* Back Button */}
+          <div className="flex items-center gap-4">
+            <Link
+              to="/"
+              className="btn btn-sm btn-ghost gap-2 hover:bg-base-200"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Chat
+            </Link>
+          </div>
+          
           <div className="text-center">
-            <h1 className="text-2xl font-semibold ">Profile</h1>
-            <p className="mt-2">Your profile information</p>
+            <h1 className="text-xl sm:text-2xl font-semibold ">Profile</h1>
+            <p className="mt-2 text-sm sm:text-base">Your profile information</p>
           </div>
 
           {/* avatar upload section */}
@@ -37,19 +49,19 @@ const ProfilePage = () => {
               <img
                 src={selectedImg || authUser.profilePic || "/avatar.png"}
                 alt="Profile"
-                className="size-32 rounded-full object-cover border-4 "
+                className="size-24 sm:size-32 rounded-full object-cover border-4 "
               />
               <label
                 htmlFor="avatar-upload"
                 className={`
                   absolute bottom-0 right-0 
                   bg-base-content hover:scale-105
-                  p-2 rounded-full cursor-pointer 
+                  p-1.5 sm:p-2 rounded-full cursor-pointer 
                   transition-all duration-200
                   ${isUpdatingProfile ? "animate-pulse pointer-events-none" : ""}
                 `}
               >
-                <Camera className="w-5 h-5 text-base-200" />
+                <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-base-200" />
                 <input
                   type="file"
                   id="avatar-upload"
@@ -60,7 +72,7 @@ const ProfilePage = () => {
                 />
               </label>
             </div>
-            <p className="text-sm text-zinc-400">
+            <p className="text-xs sm:text-sm text-zinc-400 text-center">
               {isUpdatingProfile ? "Uploading..." : "Click the camera icon to update your photo"}
             </p>
           </div>
